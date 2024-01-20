@@ -6,6 +6,11 @@
 trigger:
 - main
 
+resources:
+  webhooks:
+    - webhook: GitHubIntegration
+      connection: GitHubWebhook
+
 pool:
   vmImage: ubuntu-latest
 
