@@ -44,6 +44,11 @@ jobs:
         Configuration: ${{ matrix.configuration }}
 
 
+    - name: custom action
+      uses: t04dfr0ggy/testAction@main
+      with:
+        milliseconds: 1000
+
 
     # Upload
     - name: Upload build artifacts
