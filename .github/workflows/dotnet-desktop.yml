@@ -37,8 +37,9 @@ jobs:
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
       run: |
-        new-item -path d:\artefact -type directory
-        dotnet build consoleApp.csproj /t:Restore /p:Configuration=$env:Configuration /p:outdir=d:\artefact
+        new-item -path d:\artefact -type directory -force
+        new-item -path d:\artefact\${{ matrix.configuration }} -type directory -force
+        dotnet build consoleApp.csproj /t:Restore /p:Configuration=$env:Configuration /p:outdir=d:\artefact\${{ matrix.configuration }}
       env:
         Configuration: ${{ matrix.configuration }}
 
