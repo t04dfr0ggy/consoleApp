@@ -36,15 +36,17 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
-      run: dotnet build consoleApp.csproj /t:Restore /p:Configuration=$env:Configuration
+      run: |
+        new-item -path d:\artefact -type directory
+        dotnet build consoleApp.csproj /t:Restore /p:Configuration=$env:Configuration /p:outdir=d:\artefact
       env:
         Configuration: ${{ matrix.configuration }}
 
 
 
-    # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
+    # Upload
     - name: Upload build artifacts
       uses: actions/upload-artifact@main
       with:
-        name: MSIX Package
-        path: ${{ env.Wap_Project_Directory }}\AppPackages
+        name: ConsoleApp
+        path: d:\artefact
