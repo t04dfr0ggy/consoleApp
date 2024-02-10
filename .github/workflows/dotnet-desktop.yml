@@ -39,7 +39,7 @@ jobs:
       run: |
         new-item -path d:\artefact -type directory -force
         new-item -path d:\artefact\${{ matrix.configuration }} -type directory -force
-        dotnet build consoleApp.csproj /t:Restore /p:Configuration=$env:Configuration /p:outdir=d:\artefact\${{ matrix.configuration }}
+        dotnet build consoleApp.csproj /p:Configuration=$env:Configuration /p:outdir=d:\artefact\$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
 
