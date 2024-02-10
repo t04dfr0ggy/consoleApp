@@ -49,5 +49,7 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@main
       with:
-        name: ConsoleApp
+        name: ConsoleApp.${{ matrix.configuration }}
         path: d:\artefact
+      env:
+        Configuration: ${{ matrix.configuration }}
