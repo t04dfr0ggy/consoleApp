@@ -28,12 +28,17 @@ jobs:
       with :
         repository : t04dfr0ggy/testAction  
         ref : refs/heads/main
+        path: secondaryRepos
 
     - name: Checkout
       uses: actions/checkout@main
       with:
         fetch-depth: 1
 
+    - name : echo env vars
+      shell : cmd
+      run : SET
+      
     - name : dump folder structure
       shell : cmd
       run : |
