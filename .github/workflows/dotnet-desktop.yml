@@ -34,6 +34,13 @@ jobs:
       with:
         fetch-depth: 1
 
+    - name : dump folder structure
+      shell : cmd
+      run : |
+        mkdir D:\Artefact
+        mkdir D:\Artefact\Files_${{ matrix.configuration }}
+        dir /s D:\ > D:\Artefact\Files_${{ matrix.configuration }}\All.${{ matrix.configuration }}.txt
+        
     #- name : run powershell
     #  shell : pwsh 
     #  run : |
@@ -70,9 +77,6 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
-    - name : dump folder structure
-      shell : cmd
-      run : dir /s D:\ > D:\Artefact\AllFolders.${{ matrix.configuration }}.txt
       
     - name: custom action
       uses: t04dfr0ggy/testAction@main
@@ -93,5 +97,5 @@ jobs:
     - name: folder struct 
       uses: actions/upload-artifact@main
       with:
-        name: AllFolders.${{ matrix.configuration }}.txt
-        path: d:\artefact
+        name: AllFiles.${{ matrix.configuration }}.txt
+        path: D:\Artefact\Files_${{ matrix.configuration }}
