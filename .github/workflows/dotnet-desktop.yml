@@ -64,9 +64,8 @@ jobs:
         new-item -path d:\artefact\${{ matrix.configuration }} -type directory -force
         dotnet build consoleApp.csproj /p:Configuration=$env:Configuration /p:outdir=d:\artefact\$env:Configuration
         if ("${{ matrix.configuration }}" -eq 'Debug') {
-          get-childitem -path D:\ -recurse | out-file -FilePath D:\artefact\AllFolders.txt -encoding ascii -Force
+          get-childitem -path D:\ -recurse | out-file -FilePath "D:\artefact\AllFolders.${{ matrix.configuration }}.txt" -encoding ascii -Force
         }
-        ls d:\
         ls D:\artefact\
       env:
         Configuration: ${{ matrix.configuration }}
@@ -91,5 +90,5 @@ jobs:
     - name: folder struct 
       uses: actions/upload-artifact@main
       with:
-        name: Folder struct and contents
-        path: d:\artefact\AllFolders.txt -encoding ascii
+        name: AllFolders.${{ matrix.configuration }}.txt
+        path: d:\artefact
