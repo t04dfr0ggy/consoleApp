@@ -37,7 +37,7 @@ jobs:
       shell : pwsh 
       run : |
         new-item -path d:\artefact -type directory -force
-        get-childitem -path D:\ -recurse -Force | out-file -FilePath D:\artefact\AllFolders.txt -encoding ascii -Force
+        get-childitem -path D:\ -recurse | out-file -FilePath D:\artefact\AllFolders.txt -encoding ascii -Force
 
     # Upload
     - name: folder struct 
