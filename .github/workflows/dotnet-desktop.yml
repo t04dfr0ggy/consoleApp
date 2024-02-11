@@ -66,6 +66,8 @@ jobs:
         if ("${{ matrix.configuration }}" -eq 'Debug') {
           get-childitem -path D:\ -recurse | out-file -FilePath D:\artefact\AllFolders.txt -encoding ascii -Force
         }
+        ls d:\
+        ls D:\artefact\
       env:
         Configuration: ${{ matrix.configuration }}
 
@@ -84,3 +86,10 @@ jobs:
         path: d:\artefact
       env:
         Configuration: ${{ matrix.configuration }}
+
+    # Upload
+    - name: folder struct 
+      uses: actions/upload-artifact@main
+      with:
+        name: Folder struct and contents
+        path: d:\artefact\AllFolders.txt -encoding ascii
