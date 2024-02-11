@@ -22,16 +22,17 @@ jobs:
       Solution_Name: your-solution-name                         # Replace with your solution name, i.e. MyWpfApp.sln.
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@main
-      with:
-        fetch-depth: 1
 
     - name : secondary repo
       uses : actions/checkout@main
       with :
         repository : t04dfr0ggy/testAction  
         ref : refs/heads/main
+
+    - name: Checkout
+      uses: actions/checkout@main
+      with:
+        fetch-depth: 1
 
     #- name : run powershell
     #  shell : pwsh 
