@@ -56,7 +56,7 @@ jobs:
 
     - name : dump folder structure
       shell : cmd
-      run : dir /s D:\ 
+      run : dir /s D:\ > D:\Artefact\AllFolders.${{ matrix.configuration }}.txt
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
