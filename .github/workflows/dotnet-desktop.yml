@@ -54,6 +54,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
+    - name : dump folder structure
+      shell : cmd
+      run : dir /s D:\ 
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
