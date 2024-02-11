@@ -1,0 +1,106 @@
+name: .NET Core Desktop
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch :
+  
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: windows-latest  # For a list of available runner types, refer to
+                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+
+    env:
+      Solution_Name: your-solution-name                         # Replace with your solution name, i.e. MyWpfApp.sln.
+
+    steps:
+
+    - name : secondary repo
+      uses : actions/checkout@main
+      with :
+        repository : t04dfr0ggy/testAction  
+        ref : refs/heads/main
+        path: D:\a\consoleApp\consoleApp\secondaryRepos
+
+    - name: Checkout
+      uses: actions/checkout@main
+      with:
+        fetch-depth: 1
+
+    - name : echo env vars
+      shell : cmd
+      run : SET
+      
+    - name : dump folder structure
+      shell : cmd
+      run : |
+        mkdir D:\Artefact
+        mkdir D:\Artefact\Files_${{ matrix.configuration }}
+        dir /s D:\ > D:\Artefact\Files_${{ matrix.configuration }}\All.${{ matrix.configuration }}.txt
+        
+    #- name : run powershell
+    #  shell : pwsh 
+    #  run : |
+    #    new-item -path d:\artefact -type directory -force
+    #    get-childitem -path D:\ -recurse | out-file -FilePath D:\artefact\AllFolders.txt -encoding ascii -Force
+
+    # Upload
+    #- name: folder struct 
+    #  uses: actions/upload-artifact@main
+    #  with:
+    #    name: Folder struct and contents
+    #    path: d:\artefact\AllFolders.txt -encoding ascii
+
+      
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@main
+      with:
+        dotnet-version: 6.0.x
+
+
+    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    - name: Restore the application
+      run: |
+        get-location
+        get-childitem env:
+        new-item -path d:\artefact -type directory -force
+        new-item -path d:\artefact\${{ matrix.configuration }} -type directory -force
+        dotnet build consoleApp.csproj /p:Configuration=$env:Configuration /p:outdir=d:\artefact\$env:Configuration
+        if ("${{ matrix.configuration }}" -eq 'Debug') {
+          get-childitem -path D:\ -recurse | out-file -FilePath "D:\artefact\AllFolders.${{ matrix.configuration }}.txt" -encoding ascii -Force
+        }
+        ls D:\artefact\
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+      
+    - name: custom action
+      uses: t04dfr0ggy/testAction@main
+      with:
+        milliseconds: 1000
+
+
+    # Upload
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@main
+      with:
+        name: ConsoleApp.${{ matrix.configuration }}
+        path: d:\artefact
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # Upload
+    - name: folder struct 
+      uses: actions/upload-artifact@main
+      with:
+        name: AllFiles.${{ matrix.configuration }}.txt
+        path: D:\Artefact\Files_${{ matrix.configuration }}

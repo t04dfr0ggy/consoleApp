@@ -1,0 +1,27 @@
+name: Runners Contents
+
+on:
+  workflow_dispatch :
+  
+jobs:
+
+  build:
+    runs-on: windows-latest  
+
+    env:
+      Solution_Name: your-solution-name                       
+
+    steps:
+    - name : dump folder structure
+      shell : cmd
+      run : |
+        mkdir D:\artefact
+        dir /s D:\ > D:\artefact\allFiles.txt
+        dir /s C:\ >> D:\artefact\allFiles.txt
+        
+    # Upload
+    - name: folder struct 
+      uses: actions/upload-artifact@main
+      with:
+        name: AllFiles.txt
+        path: D:\Artefact
