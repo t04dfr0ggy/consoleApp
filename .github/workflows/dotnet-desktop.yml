@@ -54,9 +54,6 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name : dump folder structure
-      shell : cmd
-      run : dir /s D:\ > D:\Artefact\AllFolders.${{ matrix.configuration }}.txt
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
@@ -73,7 +70,10 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
-
+    - name : dump folder structure
+      shell : cmd
+      run : dir /s D:\ > D:\Artefact\AllFolders.${{ matrix.configuration }}.txt
+      
     - name: custom action
       uses: t04dfr0ggy/testAction@main
       with:
