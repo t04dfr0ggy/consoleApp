@@ -34,3 +34,9 @@
 # output folders
 **/obj/
 **/bin/
+
+# old files
+*.vss
+
+# codium metadata
+.vscode
