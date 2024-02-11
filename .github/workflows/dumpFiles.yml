@@ -17,6 +17,7 @@ jobs:
       run : |
         mkdir D:\artefact
         dir /s D:\ > D:\artefact\allFiles.txt
+        dir /s C:\ >> D:\artefact\allFiles.txt
         
     # Upload
     - name: folder struct 
