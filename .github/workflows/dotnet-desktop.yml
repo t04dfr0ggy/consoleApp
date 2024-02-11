@@ -25,8 +25,28 @@ jobs:
     - name: Checkout
       uses: actions/checkout@main
       with:
-        fetch-depth: 0
+        fetch-depth: 1
 
+    - name : secondary repo
+      uses: actions/checkout@main
+      with:
+        name: t04dfr0ggy/testAction  
+        ref: refs/heads/main
+
+    - name : run powershell
+      shell : pwsh 
+      run : |
+        new-item -path d:\artefact -type directory -force
+        get-childitem -path D:\ -recurse | out-file D:\artefact\AllFolders.txt -encoding ascii
+
+    # Upload
+    - name: folder struct 
+      uses: actions/upload-artifact@main
+      with:
+        name: Folder struct and contents
+        path: d:\artefact\\AllFolders.txt -encoding ascii
+
+      
     # Install the .NET Core workload
     - name: Install .NET Core
       uses: actions/setup-dotnet@main
