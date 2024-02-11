@@ -40,11 +40,11 @@ jobs:
     #    get-childitem -path D:\ -recurse | out-file -FilePath D:\artefact\AllFolders.txt -encoding ascii -Force
 
     # Upload
-    - name: folder struct 
-      uses: actions/upload-artifact@main
-      with:
-        name: Folder struct and contents
-        path: d:\artefact\\AllFolders.txt -encoding ascii
+    #- name: folder struct 
+    #  uses: actions/upload-artifact@main
+    #  with:
+    #    name: Folder struct and contents
+    #    path: d:\artefact\AllFolders.txt -encoding ascii
 
       
     # Install the .NET Core workload
@@ -57,6 +57,8 @@ jobs:
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
       run: |
+        get-location
+        get-childitem $env:
         new-item -path d:\artefact -type directory -force
         new-item -path d:\artefact\${{ matrix.configuration }} -type directory -force
         dotnet build consoleApp.csproj /p:Configuration=$env:Configuration /p:outdir=d:\artefact\$env:Configuration
