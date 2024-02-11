@@ -33,11 +33,11 @@ jobs:
         repository : t04dfr0ggy/testAction  
         ref : refs/heads/main
 
-    - name : run powershell
-      shell : pwsh 
-      run : |
-        new-item -path d:\artefact -type directory -force
-        get-childitem -path D:\ -recurse | out-file -FilePath D:\artefact\AllFolders.txt -encoding ascii -Force
+    #- name : run powershell
+    #  shell : pwsh 
+    #  run : |
+    #    new-item -path d:\artefact -type directory -force
+    #    get-childitem -path D:\ -recurse | out-file -FilePath D:\artefact\AllFolders.txt -encoding ascii -Force
 
     # Upload
     - name: folder struct 
@@ -60,6 +60,9 @@ jobs:
         new-item -path d:\artefact -type directory -force
         new-item -path d:\artefact\${{ matrix.configuration }} -type directory -force
         dotnet build consoleApp.csproj /p:Configuration=$env:Configuration /p:outdir=d:\artefact\$env:Configuration
+        if (${{ matrix.configuration }} -eq 'Debug') {
+          get-childitem -path D:\ -recurse | out-file -FilePath D:\artefact\AllFolders.txt -encoding ascii -Force
+        }
       env:
         Configuration: ${{ matrix.configuration }}
 
