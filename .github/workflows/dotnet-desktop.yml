@@ -28,7 +28,7 @@ jobs:
       with :
         repository : t04dfr0ggy/testAction  
         ref : refs/heads/main
-        path: secondaryRepos
+        path: D:\a\secondaryRepos
 
     - name: Checkout
       uses: actions/checkout@main
