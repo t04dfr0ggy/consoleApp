@@ -7,4 +7,8 @@ More stuff
 
 ### new stuff
 
+
+from the other branch feature/addConflict
+
 from branch feature/somChangesToTestBuilds
+
