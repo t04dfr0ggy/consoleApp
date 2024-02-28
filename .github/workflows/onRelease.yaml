@@ -2,7 +2,7 @@ name : on release
 
 on : 
   release : 
-    type : [published]
+    type : [released]
 
 jobs : 
   acknowledge :
