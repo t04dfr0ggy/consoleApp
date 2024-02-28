@@ -3,7 +3,7 @@ name : on release
 on : 
   release : 
     type :
-      - created
+      - published
 
 jobs : 
   acknowledge :
