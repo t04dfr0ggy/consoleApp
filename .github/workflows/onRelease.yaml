@@ -2,7 +2,8 @@ name : on release
 
 on : 
   release : 
-    - created
+    type :
+      - created
 
 jobs : 
   acknowledge :
