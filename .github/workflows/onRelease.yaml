@@ -1,0 +1,17 @@
+name : on release
+
+on : 
+  release : 
+
+jobs : 
+  acknowledge :
+    runs-on : ubuntu-latest
+    steps : 
+      - # step 1
+        name : first step
+        id : somethingToSay 
+        shell : pwsh 
+        run : >
+          write-host "something happened"; 
+          write-host "test"
+          write-host "that may not work"
