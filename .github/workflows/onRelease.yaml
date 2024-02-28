@@ -3,7 +3,8 @@ name : on release
 on : 
   release : 
     type : [released]
-
+  workflow_call :
+  
 jobs : 
   acknowledge :
     runs-on : ubuntu-latest
@@ -16,3 +17,9 @@ jobs :
           write-host "something happened"; 
           write-host "test"
           write-host "that may not work"
+
+      - # step 2
+        name : dump events
+        shell : pwsh
+        run : |
+          get-content -path ${{ GITHUB.EVENT_PATH }}
