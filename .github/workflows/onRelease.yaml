@@ -3,7 +3,7 @@ name : on release
 on : 
   release : 
     type : [released]
-  workflow_call :
+  workflow_dispatch :
   
 jobs : 
   acknowledge :
